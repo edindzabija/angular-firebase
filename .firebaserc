@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ng-fitness-tracker-3c060": {
+      "hosting": {
+        "angular-firebase": [
+          "ng-fitness-tracker-3c060"
+        ]
+      }
+    }
+  }
+}
