@@ -9,10 +9,11 @@
           <mat-label>Select Workout</mat-label>
           <mat-select required ngModel name="exercise">
             <mat-option
-              *ngFor="let exercise of exercises | async"
-              [value]="exercise.name"
-              >{{ exercise.name }}</mat-option
+              *ngFor="let exercise of exercises"
+              [value]="exercise.id"
             >
+              {{ exercise.name }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </mat-card-content>
