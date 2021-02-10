@@ -25,8 +25,8 @@ export class PastTrainingsComponent
   dataSource = new MatTableDataSource<Exercise>();
   private exChangedSubscription: Subscription;
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   constructor(private trainingService: TrainingService) {}
 
