@@ -16,6 +16,7 @@ import { TrainingService } from './training/training.service';
 import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AuthModule } from './auth/auth.module';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AuthModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent],
