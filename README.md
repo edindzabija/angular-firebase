@@ -3,6 +3,7 @@ Fitness Tracker
 - Angular 11
 - Firebase
 - Angular Material
+- ngrx
 
 ## Development server
 
