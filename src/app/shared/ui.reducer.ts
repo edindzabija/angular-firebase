@@ -1,4 +1,3 @@
-import { Action } from '@ngrx/store';
 import { UIActions, START_LOADING, STOP_LOADING } from './ui.actions';
 
 export interface State {
