@@ -27,14 +27,15 @@
       <mat-error>Missing password.</mat-error>
     </mat-form-field>
     <button
+      *ngIf="!(isLoading$ | async)"
       type="submit"
       mat-raised-button
       color="primary"
       [disabled]="loginForm.invalid"
-      *ngIf="!isLoading"
     >
       Submit
     </button>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+    <p *ngIf="!isLoading$">testni</p>
   </form>
 </section>
