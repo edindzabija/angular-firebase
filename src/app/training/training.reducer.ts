@@ -1,5 +1,5 @@
-import { Exercise } from './exercise.model';
-import * as fromRoot from '../app.reducer';
+import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
+
 import {
   TrainingActions,
   SET_AVAILABLE_TRAININGS,
@@ -7,7 +7,8 @@ import {
   START_TRAINING,
   STOP_TRAINING,
 } from './training.actions';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Exercise } from './exercise.model';
+import * as fromRoot from '../app.reducer';
 
 export interface TrainingState {
   availableExercises: Exercise[];
@@ -39,12 +40,14 @@ export function trainingReducer(state = initialState, action: TrainingActions) {
       };
     case START_TRAINING:
       return {
+        ...state,
         activeTraining: {
           ...state.availableExercises.find((ex) => ex.id === action.payload),
         },
       };
     case STOP_TRAINING:
       return {
+        ...state,
         activeTraining: null,
       };
     default: {

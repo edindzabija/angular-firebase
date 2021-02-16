@@ -14,11 +14,6 @@ import * as fromTraining from './training.reducer';
 
 @Injectable()
 export class TrainingService {
-  exerciseChanged = new Subject<Exercise>();
-  exercisesChanged = new Subject<Exercise[]>();
-  finishedExercisesChanged = new Subject<Exercise[]>();
-  private availableExercises: Exercise[] = [];
-  private runningExercise: Exercise;
   private fbSubs: Subscription[] = [];
 
   constructor(
@@ -28,6 +23,7 @@ export class TrainingService {
   ) {}
 
   fetchAvailableExercises() {
+    this.store.dispatch(new UI.StartLoading());
     this.fbSubs.push(
       this.db
         .collection('availableExercises')
@@ -37,7 +33,9 @@ export class TrainingService {
             return docArray.map((doc) => {
               return {
                 id: doc.payload.doc.id,
-                ...(doc.payload.doc.data() as Exercise),
+                name: doc.payload.doc.data()['name'],
+                duration: doc.payload.doc.data()['duration'],
+                calories: doc.payload.doc.data()['calories'],
               };
             });
           })
@@ -54,7 +52,6 @@ export class TrainingService {
               null,
               3000
             );
-            this.exercisesChanged.next(null);
           }
         )
     );
@@ -65,28 +62,33 @@ export class TrainingService {
   }
 
   completeExercise() {
-    this.store.select(fromTraining.getActiveTraining).pipe(take(1)).subscribe((ex) => {
-      this.addDataToDb({
-        ...ex,
-        date: new Date(),
-        state: 'completed',
+    this.store
+      .select(fromTraining.getActiveTraining)
+      .pipe(take(1))
+      .subscribe((ex) => {
+        this.addDataToDatabase({
+          ...ex,
+          date: new Date(),
+          state: 'completed',
+        });
+        this.store.dispatch(new Training.StopTraining());
       });
-      this.store.dispatch(new Training.StopTraining());
-    });
   }
 
   cancelExercise(progress: number) {
-    this.store.select(fromTraining.getActiveTraining).pipe(take(1)).subscribe((ex) => {
-      this.addDataToDb({
-        ...ex,
-        duration: ex.duration * (progress / 100),
-        calories: ex.calories * (progress / 100),
-        date: new Date(),
-        state: 'cancelled',
+    this.store
+      .select(fromTraining.getActiveTraining)
+      .pipe(take(1))
+      .subscribe((ex) => {
+        this.addDataToDatabase({
+          ...ex,
+          duration: ex.duration * (progress / 100),
+          calories: ex.calories * (progress / 100),
+          date: new Date(),
+          state: 'cancelled',
+        });
+        this.store.dispatch(new Training.StopTraining());
       });
-      this.store.dispatch(new Training.StopTraining());
-    });
-    this.store.dispatch(new Training.StopTraining());
   }
 
   fetchCompletedOrCancelledExercises() {
@@ -104,7 +106,7 @@ export class TrainingService {
     this.fbSubs.forEach((sub) => sub.unsubscribe());
   }
 
-  private addDataToDb(exercise: Exercise) {
+  private addDataToDatabase(exercise: Exercise) {
     this.db.collection('finishedExercises').add(exercise);
   }
 }

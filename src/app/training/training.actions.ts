@@ -11,6 +11,7 @@ export class SetAvailableTrainings implements Action {
 
   constructor(public payload: Exercise[]) {}
 }
+
 export class SetFinishedTrainings implements Action {
   readonly type = SET_FINISHED_TRAININGS;
 
@@ -22,6 +23,7 @@ export class StartTraining implements Action {
 
   constructor(public payload: string) {}
 }
+
 export class StopTraining implements Action {
   readonly type = STOP_TRAINING;
 }
