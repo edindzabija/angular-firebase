@@ -1,10 +1,8 @@
 Fitness Tracker
 
+>DEMO: https://ng-fitness-tracker-3c060.firebaseapp.com/
+
 - Angular 11
 - Firebase
 - Angular Material
 - ngrx
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
