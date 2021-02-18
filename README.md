@@ -1,8 +1,8 @@
-Fitness Tracker
+# Fitness Tracker
 
->DEMO: https://ng-fitness-tracker-3c060.firebaseapp.com/
+### DEMO: https://ng-fitness-tracker-3c060.firebaseapp.com/
 
 - Angular 11
 - Firebase
+- NgRx
 - Angular Material
-- ngrx
